@@ -13,6 +13,8 @@ from dizoo.classic_control.pendulum.envs import PendulumEnv
 from dizoo.mujoco.envs.mujoco_env import MujocoEnv
 from dizoo.classic_control.pendulum.config.pendulum_ppo_config import pendulum_ppo_config
 from dizoo.mujoco.config.hopper_d4pg_default_config import hopper_d4pg_default_config
+from dizoo.mujoco.config.halfcheetah_d4pg_default_config import halfcheetah_d4pg_default_config
+from dizoo.mujoco.config.walker2d_d4pg_default_config import walker2d_d4pg_default_config
 
 
 def main(cfg, seed=0, max_iterations=int(1e10)):
@@ -64,4 +66,7 @@ def main(cfg, seed=0, max_iterations=int(1e10)):
 
 
 if __name__ == "__main__":
-    main(hopper_d4pg_default_config)
+    main(walker2d_d4pg_default_config)
+
+# cd dizoo/mujoco/entry/
+# python mujoco_d4pg_main.py
