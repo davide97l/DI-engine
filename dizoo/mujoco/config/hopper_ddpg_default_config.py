@@ -19,8 +19,8 @@ hopper_ddpg_default_config = dict(
             obs_shape=11,
             action_shape=3,
             twin_critic=False,
-            actor_head_hidden_size=256,
-            critic_head_hidden_size=256,
+            actor_head_hidden_size=512,
+            critic_head_hidden_size=512,
             actor_head_type='regression',
         ),
         learn=dict(
@@ -55,7 +55,7 @@ hopper_ddpg_default_create_config = dict(
         type='ddpg',
         import_names=['ding.policy.ddpg'],
     ),
-    replay_buffer=dict(type='naive', ),
+    replay_buffer=dict(type='advanced', ),
 )
 hopper_ddpg_default_create_config = EasyDict(hopper_ddpg_default_create_config)
 create_config = hopper_ddpg_default_create_config

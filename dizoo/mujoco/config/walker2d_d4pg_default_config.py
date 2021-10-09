@@ -43,7 +43,7 @@ walker2d_d4pg_default_config = dict(
             unroll_len=1,
             noise_sigma=0.1,
         ),
-        other=dict(replay_buffer=dict(replay_buffer_size=100000, ), ),
+        other=dict(replay_buffer=dict(replay_buffer_size=1000000, ), ),
     ),
     exp_name='walker'
 )
