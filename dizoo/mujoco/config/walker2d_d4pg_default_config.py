@@ -43,8 +43,9 @@ walker2d_d4pg_default_config = dict(
             unroll_len=1,
             noise_sigma=0.1,
         ),
-        other=dict(replay_buffer=dict(replay_buffer_size=1000000, ), ),
-    )
+        other=dict(replay_buffer=dict(replay_buffer_size=100000, ), ),
+    ),
+    exp_name='walker'
 )
 walker2d_d4pg_default_config = EasyDict(walker2d_d4pg_default_config)
 main_config = walker2d_d4pg_default_config
@@ -59,7 +60,7 @@ walker2d_d4pg_default_create_config = dict(
         type='d4pg',
         import_names=['ding.policy.d4pg'],
     ),
-    replay_buffer=dict(type='naive', ),
+    replay_buffer=dict(type='advanced', ),
 )
 walker2d_d4pg_default_create_config = EasyDict(walker2d_d4pg_default_create_config)
 create_config = walker2d_d4pg_default_create_config
