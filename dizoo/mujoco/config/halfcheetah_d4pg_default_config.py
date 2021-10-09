@@ -44,7 +44,8 @@ halfcheetah_d4pg_default_config = dict(
             noise_sigma=0.1,
         ),
         other=dict(replay_buffer=dict(replay_buffer_size=1000000, ), ),
-    )
+    ),
+    exp_name='halfcheetah',
 )
 halfcheetah_d4pg_default_config = EasyDict(halfcheetah_d4pg_default_config)
 main_config = halfcheetah_d4pg_default_config

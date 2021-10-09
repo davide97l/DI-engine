@@ -76,5 +76,6 @@ ding -m serial -c walker2d_d4pg_default_config.py
 ding -m serial -c ant_d4pg_default_config.py
 ding -m serial -c hopper_d4pg_default_config.py
 cd dizoo/mujoco/entry/default_experiment/log/serial
+cd dizoo/mujoco/config/default_experiment/log/serial
 tensorboard --logdir .
 """

@@ -46,7 +46,8 @@ hopper_d4pg_default_config = dict(
         other=dict(replay_buffer=dict(
             replay_buffer_size=1000000,
         ), ),
-    )
+    ),
+    exp_name='hopper',
 )
 hopper_d4pg_default_config = EasyDict(hopper_d4pg_default_config)
 main_config = hopper_d4pg_default_config
