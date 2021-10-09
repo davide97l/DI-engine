@@ -24,7 +24,8 @@ from .atoc import ATOCPolicy
 from .acer import ACERPolicy
 from .qtran import QTRANPolicy
 from .sql import SQLPolicy
-from .cql import CQLPolicy
+from .d4pg import D4PGPolicy
+from .cql import CQLPolicy, CQLDiscretePolicy
 
 
 class EpsCommandModePolicy(CommandModePolicy):
@@ -160,6 +161,11 @@ class CQLCommandModePolicy(CQLPolicy, DummyCommandModePolicy):
     pass
 
 
+@POLICY_REGISTRY.register('cql_discrete_command')
+class CQLDiscreteCommandModePolicy(CQLDiscretePolicy, EpsCommandModePolicy):
+    pass
+
+
 @POLICY_REGISTRY.register('qmix_command')
 class QMIXCommandModePolicy(QMIXPolicy, EpsCommandModePolicy):
     pass
@@ -192,4 +198,9 @@ class ACERCommandModePolisy(ACERPolicy, DummyCommandModePolicy):
 
 @POLICY_REGISTRY.register('qtran_command')
 class QTRANCommandModePolicy(QTRANPolicy, EpsCommandModePolicy):
+    pass
+
+
+@POLICY_REGISTRY.register('d4pg_command')
+class D4PGCommandModePolicy(D4PGPolicy, DummyCommandModePolicy):
     pass
