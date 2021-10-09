@@ -20,8 +20,8 @@ halfcheetah_d4pg_default_config = dict(
         model=dict(
             obs_shape=17,
             action_shape=6,
-            actor_head_hidden_size=256,
-            critic_head_hidden_size=256,
+            actor_head_hidden_size=512,
+            critic_head_hidden_size=512,
             actor_head_type='regression',
             v_min=-100,
             v_max=100,
@@ -59,7 +59,7 @@ halfcheetah_d4pg_default_create_config = dict(
         type='d4pg',
         import_names=['ding.policy.d4pg'],
     ),
-    replay_buffer=dict(type='naive', ),
+    replay_buffer=dict(type='advanced', ),
 )
 halfcheetah_d4pg_default_create_config = EasyDict(halfcheetah_d4pg_default_create_config)
 create_config = halfcheetah_d4pg_default_create_config

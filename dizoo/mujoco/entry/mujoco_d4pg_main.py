@@ -68,5 +68,13 @@ def main(cfg, seed=0, max_iterations=int(1e10)):
 if __name__ == "__main__":
     main(walker2d_d4pg_default_config)
 
-# cd dizoo/mujoco/entry/
-# python mujoco_d4pg_main.py
+"""
+cd dizoo/mujoco/entry/
+cd dizoo/mujoco/config/
+python mujoco_d4pg_main.py
+ding -m serial -c walker2d_d4pg_default_config.py
+ding -m serial -c ant_d4pg_default_config.py
+ding -m serial -c hopper_d4pg_default_config.py
+cd dizoo/mujoco/entry/default_experiment/log/serial
+tensorboard --logdir .
+"""
