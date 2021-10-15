@@ -1,8 +1,8 @@
 from easydict import EasyDict
 
-ant_d4pg_default_config = dict(
+hopper_d4pg_default_config = dict(
     env=dict(
-        env_id='Ant-v3',
+        env_id='Hopper-v3',
         norm_obs=dict(use_norm=False, ),
         norm_reward=dict(use_norm=False, ),
         collector_env_num=1,
@@ -14,18 +14,18 @@ ant_d4pg_default_config = dict(
     policy=dict(
         cuda=True,
         priority=True,
-        nstep=3,
         on_policy=False,
+        n_step=3,
         random_collect_size=25000,
         model=dict(
-            obs_shape=111,
-            action_shape=8,
-            actor_head_hidden_size=256,
-            critic_head_hidden_size=256,
+            obs_shape=11,
+            action_shape=3,
+            actor_head_hidden_size=256,  # 512 yelds 1500
+            critic_head_hidden_size=256,  # 512 yelds 1500
             actor_head_type='regression',
             v_min=0,
-            v_max=4000,
-            n_atom=51,
+            v_max=10000,
+            n_atom=51
         ),
         learn=dict(
             update_per_collect=1,
@@ -43,24 +43,26 @@ ant_d4pg_default_config = dict(
             unroll_len=1,
             noise_sigma=0.1,
         ),
-        other=dict(replay_buffer=dict(replay_buffer_size=1000000, ), ),
+        other=dict(replay_buffer=dict(
+            replay_buffer_size=1000000,
+        ), ),
     ),
-    exp_name='ant',
+    exp_name='hopper_10000',
 )
-ant_d4pg_default_config = EasyDict(ant_d4pg_default_config)
-main_config = ant_d4pg_default_config
+hopper_d4pg_default_config = EasyDict(hopper_d4pg_default_config)
+main_config = hopper_d4pg_default_config
 
-ant_d4pg_default_create_config = dict(
+hopper_d4pg_default_create_config = dict(
     env=dict(
         type='mujoco',
         import_names=['dizoo.mujoco.envs.mujoco_env'],
     ),
-    env_manager=dict(type='base'),
+    env_manager=dict(type='subprocess'),
     policy=dict(
         type='d4pg',
         import_names=['ding.policy.d4pg'],
     ),
     replay_buffer=dict(type='advanced', ),
 )
-ant_d4pg_default_create_config = EasyDict(ant_d4pg_default_create_config)
-create_config = ant_d4pg_default_create_config
+hopper_d4pg_default_create_config = EasyDict(hopper_d4pg_default_create_config)
+create_config = hopper_d4pg_default_create_config

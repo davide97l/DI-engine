@@ -12,14 +12,15 @@ pendulum_d4pg_config = dict(
     policy=dict(
         cuda=False,
         priority=True,
+        priority_IS_weight=True,
         nstep=3,
         random_collect_size=800,
         model=dict(
             obs_shape=3,
             action_shape=1,
             actor_head_type='regression',
-            v_min=-100,
-            v_max=100,
+            v_min=-1000,
+            v_max=0,
             n_atom=51,
         ),
         learn=dict(

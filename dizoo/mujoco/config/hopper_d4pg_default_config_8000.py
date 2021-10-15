@@ -23,8 +23,8 @@ hopper_d4pg_default_config = dict(
             actor_head_hidden_size=256,  # 512 yelds 1500
             critic_head_hidden_size=256,  # 512 yelds 1500
             actor_head_type='regression',
-            v_min=-100,
-            v_max=100,
+            v_min=0,
+            v_max=8000,
             n_atom=51
         ),
         learn=dict(
@@ -47,7 +47,7 @@ hopper_d4pg_default_config = dict(
             replay_buffer_size=1000000,
         ), ),
     ),
-    exp_name='hopper',
+    exp_name='hopper_8000',
 )
 hopper_d4pg_default_config = EasyDict(hopper_d4pg_default_config)
 main_config = hopper_d4pg_default_config

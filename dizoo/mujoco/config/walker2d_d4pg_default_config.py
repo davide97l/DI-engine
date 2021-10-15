@@ -20,11 +20,11 @@ walker2d_d4pg_default_config = dict(
         model=dict(
             obs_shape=17,
             action_shape=6,
-            actor_head_hidden_size=512,
-            critic_head_hidden_size=512,
+            actor_head_hidden_size=256,
+            critic_head_hidden_size=256,
             actor_head_type='regression',
-            v_min=-100,
-            v_max=100,
+            v_min=0,
+            v_max=5000,
             n_atom=51,
         ),
         learn=dict(

@@ -4,7 +4,8 @@ import torch
 import copy
 
 from ding.torch_utils import Adam, to_device
-from ding.rl_utils import v_1step_td_data, v_1step_td_error, get_train_sample
+from ding.rl_utils import v_1step_td_data, v_1step_td_error, get_train_sample, \
+                          v_nstep_td_data, v_nstep_td_error, get_nstep_return_data
 from ding.model import model_wrap
 from ding.utils import POLICY_REGISTRY
 from ding.utils.data import default_collate, default_decollate
@@ -79,6 +80,7 @@ class DDPGPolicy(Policy):
         # (int) Number of training samples(randomly collected) in replay buffer when training starts.
         # Default 25000 in DDPG/TD3.
         random_collect_size=25000,
+        nstep=3,
         model=dict(
             # (bool) Whether to use two critic networks or only one.
             # Clipped Double Q-Learning for Actor-Critic in original TD3 paper.
@@ -158,6 +160,8 @@ class DDPGPolicy(Policy):
         self._use_reward_batch_norm = self._cfg.get('use_reward_batch_norm', False)
 
         self._gamma = self._cfg.learn.discount_factor
+        print(self._cfg.nstep)
+        self._nstep = self._cfg.nstep
         self._actor_update_freq = self._cfg.learn.actor_update_freq
         self._twin_critic = self._cfg.model.twin_critic  # True for TD3, False for DDPG
 
@@ -201,7 +205,7 @@ class DDPGPolicy(Policy):
             use_priority=self._cfg.priority,
             use_priority_IS_weight=self._cfg.priority_IS_weight,
             ignore_done=self._cfg.learn.ignore_done,
-            use_nstep=False
+            use_nstep=True
         )
         if self._cuda:
             data = to_device(data, self._device)
@@ -227,22 +231,24 @@ class DDPGPolicy(Policy):
             next_action = self._target_model.forward(next_obs, mode='compute_actor')['action']
             next_data = {'obs': next_obs, 'action': next_action}
             target_q_value = self._target_model.forward(next_data, mode='compute_critic')['q_value']
+        value_gamma = data.get('value_gamma')
         if self._twin_critic:
             # TD3: two critic networks
             target_q_value = torch.min(target_q_value[0], target_q_value[1])  # find min one as target q value
             # network1
-            td_data = v_1step_td_data(q_value[0], target_q_value, reward, data['done'], data['weight'])
-            critic_loss, td_error_per_sample1 = v_1step_td_error(td_data, self._gamma)
+            td_data = v_nstep_td_data(q_value[0], target_q_value, reward, data['done'], data['weight'], value_gamma)
+            critic_loss, td_error_per_sample1 = v_nstep_td_error(td_data, self._gamma, self._nstep)
             loss_dict['critic_loss'] = critic_loss
             # network2(twin network)
-            td_data_twin = v_1step_td_data(q_value[1], target_q_value, reward, data['done'], data['weight'])
-            critic_twin_loss, td_error_per_sample2 = v_1step_td_error(td_data_twin, self._gamma)
+            td_data_twin = v_nstep_td_data(q_value[1], target_q_value, reward, data['done'], data['weight'],
+                                           value_gamma)
+            critic_twin_loss, td_error_per_sample2 = v_nstep_td_error(td_data_twin, self._gamma, self._nstep)
             loss_dict['critic_twin_loss'] = critic_twin_loss
             td_error_per_sample = (td_error_per_sample1 + td_error_per_sample2) / 2
         else:
             # DDPG: single critic network
-            td_data = v_1step_td_data(q_value, target_q_value, reward, data['done'], data['weight'])
-            critic_loss, td_error_per_sample = v_1step_td_error(td_data, self._gamma)
+            td_data = v_nstep_td_data(q_value, target_q_value, reward, data['done'], data['weight'], value_gamma)
+            critic_loss, td_error_per_sample = v_nstep_td_error(td_data, self._gamma, self._nstep)
             loss_dict['critic_loss'] = critic_loss
         # ================
         # critic update
@@ -360,6 +366,7 @@ class DDPGPolicy(Policy):
         return transition
 
     def _get_train_sample(self, data: list) -> Union[None, List[Any]]:
+        data = get_nstep_return_data(data, self._nstep, gamma=self._gamma)
         return get_train_sample(data, self._unroll_len)
 
     def _init_eval(self) -> None:

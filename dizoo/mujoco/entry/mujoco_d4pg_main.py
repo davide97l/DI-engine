@@ -12,7 +12,7 @@ from ding.utils import set_pkg_seed
 from dizoo.classic_control.pendulum.envs import PendulumEnv
 from dizoo.mujoco.envs.mujoco_env import MujocoEnv
 from dizoo.classic_control.pendulum.config.pendulum_ppo_config import pendulum_ppo_config
-from dizoo.mujoco.config.hopper_d4pg_default_config import hopper_d4pg_default_config
+from dizoo.mujoco.config.hopper_d4pg_default_config_6000 import hopper_d4pg_default_config
 from dizoo.mujoco.config.halfcheetah_d4pg_default_config import halfcheetah_d4pg_default_config
 from dizoo.mujoco.config.walker2d_d4pg_default_config import walker2d_d4pg_default_config
 
@@ -75,7 +75,10 @@ python mujoco_d4pg_main.py
 ding -m serial -c walker2d_d4pg_default_config.py
 ding -m serial -c ant_d4pg_default_config.py
 ding -m serial -c hopper_d4pg_default_config.py
+ding -m serial -c halfcheetah_d4pg_default_config.py
 cd dizoo/mujoco/entry/default_experiment/log/serial
 cd dizoo/mujoco/config/default_experiment/log/serial
 tensorboard --logdir .
+spring.submit run --gpu 'ding -m serial -c walker2d_d4pg_default_config.py' 
+spring.submit run --gpu 'ding -m serial -c hopper_d4pg_default_config.py' 
 """

@@ -52,7 +52,8 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 @click.option(
     '-m',
     '--mode',
-    type=click.Choice(['serial', 'serial_onpolicy', 'serial_sqil', 'parallel', 'dist', 'eval']),
+    type=click.Choice(['serial', 'serial_onpolicy', 'serial_sqil', 'parallel', 'dist', 'eval', 'serial_reward_model',
+                       'serial_gail']),
     help='serial-train or parallel-train or dist-train or eval'
 )
 @click.option('-c', '--config', type=str, help='Path to DRL experiment config')
@@ -157,6 +158,21 @@ def cli(
             config = get_predefined_config(env, policy)
         expert_config = input("Enter the name of the config you used to generate your expert model: ")
         serial_pipeline_sqil(config, expert_config, seed, max_iterations=train_iter)
+    elif mode == 'serial_reward_model':
+        from .serial_entry_reward_model import serial_pipeline_reward_model
+        if config is None:
+            config = get_predefined_config(env, policy)
+        serial_pipeline_reward_model(config, seed, max_iterations=train_iter)
+    elif mode == 'serial_gail':  # test
+        from .serial_entry_gail import serial_pipeline_gail
+        if config is None:
+            config = get_predefined_config(env, policy)
+        serial_pipeline_gail(config, seed=seed, max_iterations=train_iter)
+    if mode == 'serial':
+        from .serial_entry import serial_pipeline
+        if config is None:
+            config = get_predefined_config(env, policy)
+        serial_pipeline(config, seed, max_iterations=train_iter)
     elif mode == 'parallel':
         from .parallel_entry import parallel_pipeline
         parallel_pipeline(config, seed, enable_total_log, disable_flask_log)
