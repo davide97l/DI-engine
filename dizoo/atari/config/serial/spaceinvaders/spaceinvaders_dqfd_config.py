@@ -1,5 +1,3 @@
-from copy import deepcopy
-from ding.entry import serial_pipeline
 from easydict import EasyDict
 
 space_invaders_dqfd_config = dict(
@@ -32,7 +30,7 @@ space_invaders_dqfd_config = dict(
             lambda2 = 1.0,
             lambda3 = 1e-5,
             per_train_iter_k = 10,
-            expert_replay_buffer_size = 10000, # justify the buffer size of the expert buffer 
+            expert_replay_buffer_size = 10000, # justify the buffer size of the expert buffer
         ),
         collect=dict(n_sample=100, demonstration_info_path = 'path'), #Users should add their own path here (path should lead to a well-trained model)
         eval=dict(evaluator=dict(eval_freq=4000, )),
@@ -59,6 +57,3 @@ space_invaders_dqfd_create_config = dict(
 )
 space_invaders_dqfd_create_config = EasyDict(space_invaders_dqfd_create_config)
 create_config = space_invaders_dqfd_create_config
-
-if __name__ == '__main__':
-    serial_pipeline((main_config, create_config), seed=0)
