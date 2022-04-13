@@ -579,7 +579,9 @@ class DRQN(nn.Module):
             lstm_type: Optional[str] = 'normal',
             activation: Optional[nn.Module] = nn.ReLU(),
             norm_type: Optional[str] = None,
-            res_link: bool = False
+            res_link: bool = False,
+            batch_size: Optional[int] = None,
+            seq_len: Optional[int] = None,
     ) -> None:
         r"""
         Overview:
@@ -613,7 +615,8 @@ class DRQN(nn.Module):
                 "not support obs_shape for pre-defined encoder: {}, please customize your own DRQN".format(obs_shape)
             )
         # LSTM Type
-        self.rnn = get_lstm(lstm_type, input_size=head_hidden_size, hidden_size=head_hidden_size)
+        self.rnn = get_lstm(lstm_type, input_size=head_hidden_size, hidden_size=head_hidden_size,
+                            batch_size=batch_size, seq_len=seq_len)
         self.res_link = res_link
         # Head Type
         if dueling:
