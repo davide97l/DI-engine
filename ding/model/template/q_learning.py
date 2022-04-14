@@ -693,6 +693,8 @@ class DRQN(nn.Module):
                 a = x
             x = x.unsqueeze(0)  # for rnn input, put the seq_len of x as 1 instead of none.
             # prev_state: DataType: List[Tuple[torch.Tensor]]; Initially, it is a list of None
+            #print(len(prev_state))
+            #input()
             x, next_state = self.rnn(x, prev_state)
             x = x.squeeze(0)  # to delete the seq_len dim to match head network input
             if self.res_link:

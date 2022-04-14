@@ -19,7 +19,7 @@ cartpole_r2d2_config = dict(
             obs_shape=4,
             action_shape=2,
             encoder_hidden_size_list=[128, 128, 64],
-            lstm_type='hpc',
+            lstm_type='pytorch',
             batch_size=8,
             seq_len=20,
         ),
