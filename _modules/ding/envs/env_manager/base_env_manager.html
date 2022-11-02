@@ -124,9 +124,29 @@
                   <p>Tree Nested PyTorch Tensor Lib</p>
                 </a>
                 <a class="doc-dropdown-option nav-dropdown-item"
+                  href="https://github.com/opendilab/DI-sheep" target="_blank">
+                  <span class="dropdown-title">DI-sheep </span>
+                  <p>Deep Reinforcement Learning + 3 Tiles Game</p>
+                </a>
+                <a class="doc-dropdown-option nav-dropdown-item"
                   href="https://github.com/opendilab/awesome-model-based-RL" target="_blank">
                   <span class="dropdown-title">awesome-model-based-RL </span>
                   <p>A curated list of awesome model based RL resources (continually updated)</p>
+                </a>
+                <a class="doc-dropdown-option nav-dropdown-item"
+                  href="https://github.com/opendilab/awesome-decision-transformer" target="_blank">
+                  <span class="dropdown-title">awesome-decision-transformer </span>
+                  <p>A curated list of Decision Transformer resources (continually updated)</p>
+                </a>
+                <a class="doc-dropdown-option nav-dropdown-item"
+                  href="https://github.com/opendilab/awesome-exploration-rl" target="_blank">
+                  <span class="dropdown-title">awesome-exploration-rl </span>
+                  <p>A curated list of awesome exploration RL resources (continually updated)</p>
+                </a>
+                <a class="doc-dropdown-option nav-dropdown-item"
+                  href="https://github.com/opendilab/awesome-multi-modal-reinforcement-learning" target="_blank">
+                  <span class="dropdown-title">awesome-multi-modal-reinforcement-learning </span>
+                  <p>A curated list of Multi-Modal Reinforcement Learning resources (continually updated)</p>
                 </a>
               </div>
           </li>
@@ -593,7 +613,7 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Env </span><span class="si">{}</span><span class="s2"> reset has exceeded max retries(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">env_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_retry</span><span class="p">))</span>
         <span class="n">runtime_error</span> <span class="o">=</span> <span class="ne">RuntimeError</span><span class="p">(</span>
             <span class="s2">&quot;Env </span><span class="si">{}</span><span class="s2"> reset has exceeded max retries(</span><span class="si">{}</span><span class="s2">), and the latest exception is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">env_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_retry</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">exceptions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">env_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_retry</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">exceptions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="n">runtime_error</span><span class="o">.</span><span class="n">__traceback__</span> <span class="o">=</span> <span class="n">exceptions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">__traceback__</span>
@@ -647,7 +667,7 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Env </span><span class="si">{}</span><span class="s2"> step has exceeded max retries(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">env_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_retry</span><span class="p">))</span>
         <span class="n">runtime_error</span> <span class="o">=</span> <span class="ne">RuntimeError</span><span class="p">(</span>
             <span class="s2">&quot;Env </span><span class="si">{}</span><span class="s2"> step has exceeded max retries(</span><span class="si">{}</span><span class="s2">), and the latest exception is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">env_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_retry</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">exceptions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">env_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_retry</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">exceptions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="n">runtime_error</span><span class="o">.</span><span class="n">__traceback__</span> <span class="o">=</span> <span class="n">exceptions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">__traceback__</span>
